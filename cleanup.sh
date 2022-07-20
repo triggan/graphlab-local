@@ -6,12 +6,12 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     # do dangerous stuff
     echo "Shutting down containers..."
-    docker stop notebooks
+    docker stop graph-notebook
     docker stop gremlin-server
     docker stop blazegraph-server
 
     echo "Deleting containers..."
-    docker rm notebooks
+    docker rm graph-notebook
     docker rm gremlin-server
     docker rm blazegraph-server
 
