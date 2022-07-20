@@ -15,15 +15,15 @@ else
 fi
 
 echo "Fetching container images from docker hub..."
-docker pull triggan/gremlin-server-mac-m1:latest
-docker pull triggan/graph-notebook-mac-m1:latest
+docker pull triggan/gremlin-server:latest
+docker pull triggan/graph-notebook:latest
 docker pull triggan/blazegraph-server:2.1.5
 
 echo "Creating a new container network..."
 docker network create graphlab
 
 echo "Launching containers..."
-docker run -p 8182:8182 --name gremlin-server --network graphlab -d triggan/gremlin-server-mac-m1:latest
+docker run -p 8182:8182 --name gremlin-server --network graphlab -d triggan/gremlin-server:latest
 docker run \
 --env GRAPH_NOTEBOOK_AUTH_MODE="DEFAULT" \
 --env GRAPH\_NOTEBOOK\_HOST="gremlin-server" \
@@ -34,10 +34,10 @@ docker run \
 --env LAB_PORT="8889" \
 --env GRAPH_NOTEBOOK_SSL="False" \
 --env NOTEBOOK\_PASSWORD="$1" \
---name notebooks \
+--name graph-notebook \
 --network graphlab \
 -p 8888:8888 \
--d triggan/graph-notebook-mac-m1:latest
+-d triggan/graph-notebook:latest
 docker run -p 8080:8080 --name blazegraph-server --network graphlab -d triggan/blazegraph-server:2.1.5
 
 echo "Complete! Browse to http://localhost:8888 to connect to Jupyter."
