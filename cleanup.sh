@@ -8,10 +8,12 @@ then
     echo "Shutting down containers..."
     docker stop notebooks
     docker stop gremlin-server
+    docker stop blazegraph-server
 
     echo "Deleting containers..."
     docker rm notebooks
     docker rm gremlin-server
+    docker rm blazegraph-server
 
     echo "Delete graphlab network..."
     docker network rm graphlab

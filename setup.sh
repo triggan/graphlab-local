@@ -17,6 +17,7 @@ fi
 echo "Fetching container images from docker hub..."
 docker pull triggan/gremlin-server-mac-m1:latest
 docker pull triggan/graph-notebook-mac-m1:latest
+docker pull triggan/blazegraph-server:2.1.5
 
 echo "Creating a new container network..."
 docker network create graphlab
@@ -37,5 +38,6 @@ docker run \
 --network graphlab \
 -p 8888:8888 \
 -d triggan/graph-notebook-mac-m1:latest
+docker run -p 8080:8080 --name blazegraph-server --network graphlab -d triggan/blazegraph-server:2.1.5
 
 echo "Complete! Browse to http://localhost:8888 to connect to Jupyter."
