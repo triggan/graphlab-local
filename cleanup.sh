@@ -9,11 +9,15 @@ then
     docker stop graph-notebook
     docker stop gremlin-server
     docker stop blazegraph-server
+    docker stop graphdb-local
+    docker stop apache-age
 
     echo "Deleting containers..."
     docker rm graph-notebook
     docker rm gremlin-server
     docker rm blazegraph-server
+    docker rm graphdb-local
+    docker rm apache-age
 
     echo "Delete graphlab network..."
     docker network rm graphlab
