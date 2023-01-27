@@ -15,18 +15,19 @@ else
 fi
 
 echo "Fetching container images from docker hub..."
-docker pull triggan/gremlin-server:latest
 docker pull public.ecr.aws/neptune/graph-notebook:latest
 docker pull triggan/blazegraph-server:2.1.5
 docker pull apache/age:latest
 
+echo "Building remaining needed container images..."
 docker build ./nginx/ -t graphdb-local
+docker build ./gremlin-server/ -t gremlin-server:latest
 
 echo "Creating a new container network..."
 docker network create graphlab
 
 echo "Launching containers..."
-docker run -p 8182:8182 --name gremlin-server --network graphlab -d triggan/gremlin-server:latest
+docker run -p 8182:8182 --name gremlin-server --network graphlab -d gremlin-server:latest
 docker run \
 --env GRAPH_NOTEBOOK_AUTH_MODE="DEFAULT" \
 --env GRAPH\_NOTEBOOK\_HOST="graphdb-local" \
